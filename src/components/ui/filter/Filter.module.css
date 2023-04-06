@@ -1,0 +1,13 @@
+.foodTypes {
+  display: flex;
+  align-items: center;
+  overflow-y: scroll;
+  width: 100%;
+  padding: 2vw;
+}
+.foodTypes::-webkit-scrollbar {
+  display: none;
+}
+p {
+  font-size: 5vw;
+}
