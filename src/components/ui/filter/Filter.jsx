@@ -1,27 +1,31 @@
 import FoodType from "../food-type/FoodType";
 import styles from "./Filter.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Filter({ filterOnChange }) {
   const [filterType, setFilterType] = useState("Popular");
-  const [types, setTypes] = useState([
-    { id: 1, title: "Salad", active: false },
-    { id: 2, title: "Drink", active: false },
-    { id: 3, title: "Pizza", active: false },
-    { id: 4, title: "Pasta", active: false },
-    { id: 5, title: "Dessert", active: false },
-    { id: 6, title: "Salad", active: false },
-    { id: 7, title: "Salad", active: false },
-    { id: 8, title: "Salad", active: false },
-    { id: 9, title: "Salad", active: false },
-    { id: 10, title: "Salad", active: false },
-  ]);
+
+  const [types, setTypes] = useState([]);
+  const headers = {
+    Authorization:
+      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgwOTg0NTk4LCJpYXQiOjE2ODA5ODI0MTUsImp0aSI6IjYwYjcyMzRiZDkxMjQwMTZhOTU1YjA0NjZlZDhlZjIyIiwidXNlcl9pZCI6Mn0.nDe5Lky8Cv863n5TCySvjpUpgpkGz-7whmKK3hQZV3I",
+  };
+  useEffect(() => {
+    axios
+      .get(`http://37.157.221.131/api/v0.1.0/foods/categories/`, { headers })
+      .then((res) => {
+        console.log(res);
+        setTypes(res.data.results);
+      });
+  }, []);
+
   const handleFilterChange = (id) => {
     setTypes(
       types.map((type) => {
         if (id === type.id) {
-          setFilterType(type.title);
-          filterOnChange(type.title);
+          setFilterType(type.description);
+          filterOnChange(type.description);
         }
         return { ...type, active: id === type.id };
       })

@@ -1,9 +1,9 @@
 import Ibasket from "../../icons/Ibasket";
 import styles from "./Basket.module.css";
 
-function Basket({ basket, modalOpened, openHandler, closeHandler }) {
+function Basket({ basket, modalOpened, openHandler, closeHandler, className }) {
   return (
-    <div className={styles.basket}>
+    <div className={`${styles.basket} ${className}`}>
       <button className={styles.openBtn} onClick={openHandler}></button>
       <Ibasket className={styles.icon} />
       <span className={styles.count}>{basket.food.length}</span>

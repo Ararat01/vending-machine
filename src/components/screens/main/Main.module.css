@@ -9,3 +9,11 @@
   height: 20vw;
   display: inline-block;
 }
+.anim {
+  transition: transform 0.3s;
+  transform: scale(1.3);
+}
+.anim span {
+  transition: transform 0.3s;
+  transform: rotateZ(360deg);
+}

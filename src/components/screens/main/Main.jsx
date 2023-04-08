@@ -39,6 +39,28 @@ function Main() {
     if (filt == filter) return;
     setFilter(filt);
   };
+  let [basketAnim, setBasketAnim] = useState("");
+  const pickFood = (food) => {
+    setBasketAnim(styles.anim);
+    setBasket({
+      food: [
+        ...basket.food,
+        {
+          name: "Salmon salad",
+          type: "salad",
+          count: 1,
+          price: 29,
+          id: Date.now(),
+        },
+      ],
+      total:
+        [...basket.food].reduce((tt, a) => tt + a.price * a.count, 0) +
+        food.price,
+    });
+    setTimeout(() => {
+      setBasketAnim("");
+    }, 500);
+  };
   return (
     <div
       className={styles.body}
@@ -50,6 +72,7 @@ function Main() {
         <Basket
           basket={basket}
           modalOpened={modal}
+          className={basketAnim}
           closeHandler={() => {
             setModal(false);
           }}
@@ -61,7 +84,7 @@ function Main() {
       <Filter filterOnChange={filterOnChange} />
       <div className="container">
         <h2 className="title">{filter}</h2>
-        <FoodTab />
+        <FoodTab pickFood={() => pickFood({ price: 29 })} />
         <FoodTab />
         <FoodTab />
         <FoodTab />

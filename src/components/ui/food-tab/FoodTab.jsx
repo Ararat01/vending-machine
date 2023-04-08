@@ -1,8 +1,8 @@
 import styles from "./FoodTab.module.css";
 
-function FoodTab() {
+function FoodTab({ pickFood }) {
   return (
-    <div className={styles.tab}>
+    <div onClick={pickFood} className={styles.tab}>
       <div className={styles.imgDiv}>
         <img
           className={styles.img}
