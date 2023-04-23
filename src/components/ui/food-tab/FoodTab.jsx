@@ -1,17 +1,15 @@
 import styles from "./FoodTab.module.css";
 
-function FoodTab({ pickFood }) {
+function FoodTab({ food, pickFood }) {
   return (
     <div onClick={pickFood} className={styles.tab}>
       <div className={styles.imgDiv}>
-        <img
-          className={styles.img}
-          src="https://www.pngmart.com/files/1/Salad-PNG-Image.png"
-          alt=""
-        />
+        <img className={styles.img} src={food.image} alt="" />
       </div>
       <div className={styles.info}>
-        <h4>Salmon salad 29$</h4>
+        <h4>
+          {food.name} {Math.floor(food.price)} $
+        </h4>
         <a>Introduction about dishes</a>
         <span>
           <svg

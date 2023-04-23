@@ -1,5 +1,6 @@
 import Ibasket from "../../icons/Ibasket";
 import styles from "./Basket.module.css";
+import BasketTab from "../basket-tab/BasketTab";
 
 function Basket({ basket, modalOpened, openHandler, closeHandler, className }) {
   return (
@@ -41,11 +42,7 @@ function Basket({ basket, modalOpened, openHandler, closeHandler, className }) {
         </div>
         <div>
           {basket.food.map((food) => {
-            return (
-              <h6 key={food.id}>
-                {food.count} x {food.name} {food.price * food.count} $
-              </h6>
-            );
+            return <BasketTab food={food} key={food.id} />;
           })}
           <h5>{basket.total} $</h5>
         </div>

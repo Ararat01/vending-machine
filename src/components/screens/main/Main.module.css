@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 2vw 10vw;
+  width: 100vw;
 }
 .logo {
   width: 20vw;
@@ -16,4 +17,8 @@
 .anim span {
   transition: transform 0.3s;
   transform: rotateZ(360deg);
+}
+.dot {
+  display: flex;
+  justify-content: center;
 }

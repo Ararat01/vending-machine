@@ -1,19 +1,22 @@
 .tab {
   width: 80vw;
-  height: 30vw;
+  min-height: 30vw;
   box-shadow: 0px 0px 1vw rgba(0, 0, 0, 0.1), 0px 0.5vw 0.5vw rgba(0, 0, 0, 0.2);
   border-radius: 5vw;
   padding: 5vw;
   margin-bottom: 5vw;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .imgDiv {
   width: 30%;
 }
 .img {
   width: 100%;
+}
+.info {
+  max-width: 65%;
 }
 .info h4 {
   font-weight: 400;

@@ -15,7 +15,9 @@
   transition: background-color 0.3s;
 }
 .img {
-  width: 200%;
+  max-width: 100%;
+  max-height: 100%;
+  filter: grayscale(100%);
 }
 .imgDiv {
   width: 11vw;
@@ -26,8 +28,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3vw;
+  padding: 2vw;
 }
 .title {
   font-size: 3vw;
+}
+.active {
+  background-color: #db6719;
+  color: #fff;
+}
+
+.active .img {
+  filter: grayscale(0);
 }
