@@ -9,11 +9,15 @@ import axios from "axios";
 import { DotPulse } from "@uiball/loaders";
 
 function Main() {
-  const [filter, setFilter] = useState({ name: "Combos", id: 7 });
+  const [filter, setFilter] = useState(undefined);
 
   useEffect(() => {
     axios
-      .get(`http://37.157.221.131/api/v0.1.0/foods/categories/${filter.id}`)
+      .get(
+        `http://37.157.221.131/api/v0.1.0/foods/categories/${
+          filter ? filter.id : "123"
+        }`
+      )
       .then((res) => {
         setFoodArr([]);
         console.log(1, res);
@@ -39,11 +43,34 @@ function Main() {
   };
   const pickFood = (food) => {
     setBasketAnim(styles.anim);
-    console.log(food);
+    putBasket(food);
     setTimeout(() => {
       setBasketAnim("");
     }, 500);
   };
+  const putBasket = (food) => {
+    basket.food.find((obj) => obj.id === food.id)
+      ? setBasket({
+          food: [
+            ...basket.food.map((fd) => {
+              return food.id == fd.id ? { ...fd, count: fd.count + 1 } : fd;
+            }),
+          ],
+          total: basket.food.reduce(
+            (t, f) => t + parseFloat(f.price) * f.count,
+            parseFloat(food.price)
+          ),
+        })
+      : setBasket({
+          food: [...basket.food, { ...food, count: 1 }],
+          total: basket.food.reduce(
+            (t, f) => t + parseFloat(f.price) * f.count,
+            parseFloat(food.price)
+          ),
+        });
+  };
+  console.log(basket);
+
   //////////////////
   // html
   ////////////////
@@ -69,7 +96,7 @@ function Main() {
       </div>
       <Filter filterOnChange={filterOnChange} />
       <div className="container">
-        <h2 className="title">{filter.name}</h2>
+        <h2 className="title">{filter ? filter.name : `Loading...`}</h2>
         {!foodArr.length ? (
           <div className={styles.dot}>
             <DotPulse size={60} speed={1} color="#e88a4f" />

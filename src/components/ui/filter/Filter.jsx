@@ -13,8 +13,11 @@ function Filter({ filterOnChange }) {
       .then((res) => {
         console.log(res);
         setTypes(
-          res.data.results.map((type) => {
-            return { ...type, active: type.id === 7 };
+          res.data.results.map((type, i) => {
+            if (i === 0) {
+              filterOnChange({ name: type.description, id: type.id });
+            }
+            return { ...type, active: i === 0 };
           })
         );
       });

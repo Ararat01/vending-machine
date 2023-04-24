@@ -4,11 +4,7 @@ function BasketTab({ food }) {
   return (
     <div className={styles.main}>
       <div className={styles.mainInfo}>
-        <img
-          className={styles.img}
-          src="https://www.pngmart.com/files/1/Salad-PNG-Image.png"
-          alt=""
-        />
+        <img className={styles.img} src={food.image} alt="" />
         <h3>{food.name}</h3>
       </div>
 
