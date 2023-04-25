@@ -11,7 +11,6 @@ function Filter({ filterOnChange }) {
     axios
       .get(`http://37.157.221.131/api/v0.1.0/foods/categories/`)
       .then((res) => {
-        console.log(res);
         setTypes(
           res.data.results.map((type, i) => {
             if (i === 0) {

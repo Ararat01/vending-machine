@@ -20,7 +20,6 @@ function Main() {
       )
       .then((res) => {
         setFoodArr([]);
-        console.log(1, res);
         res.data.results ? setFoodArr(res.data.results) : setFoodArr([]);
       });
   }, [filter]);
@@ -69,7 +68,6 @@ function Main() {
           ),
         });
   };
-  console.log(basket);
 
   //////////////////
   // html
@@ -108,6 +106,7 @@ function Main() {
                 key={food.id}
                 pickFood={() => pickFood(food)}
                 food={food}
+                count={1}
               />
             );
           })

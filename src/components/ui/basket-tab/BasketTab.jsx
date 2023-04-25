@@ -1,6 +1,6 @@
 import styles from "./BasketTab.module.css";
 
-function BasketTab({ food }) {
+function BasketTab({ food, actions }) {
   return (
     <div className={styles.main}>
       <div className={styles.mainInfo}>
@@ -9,9 +9,21 @@ function BasketTab({ food }) {
       </div>
 
       <div className={styles.actions}>
-        <button>-</button>
+        <button
+          onClick={() => {
+            actions(-1);
+          }}
+        >
+          -
+        </button>
         <span>{food.count}</span>
-        <button>+</button>
+        <button
+          onClick={() => {
+            actions(1);
+          }}
+        >
+          +
+        </button>
       </div>
     </div>
   );
