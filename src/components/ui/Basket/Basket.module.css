@@ -45,31 +45,50 @@
   right: 0;
   margin: auto;
   z-index: 100;
-  padding: 5vw;
+  padding: 15vh 5vw;
   overflow: auto;
+}
+.basketFoods {
+  overflow-y: auto;
+  height: 70vh;
+  padding: 3vw;
 }
 .modalOpen {
   height: 100vh;
   width: 100vw;
-  background-color: rgba(255, 255, 255, 0.95);
-  transition: 0.3s;
+  background-color: #fff;
+  opacity: 1;
+  transition: opacity 0.3s;
 }
+
 .modalClose {
   width: 0vw;
   height: 0vh;
   overflow: hidden;
   padding: 0;
+  opacity: 0;
 }
 .title {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
+  position: absolute;
+  top: 5vw;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 90vw;
 }
 .title::after {
+  content: "";
   display: block;
+  position: absolute;
+  bottom: -1vw;
   height: 1vw;
   width: 90vw;
+  background-color: #e88a4f;
+  border-radius: 1vw;
 }
 .closeBtn {
   display: flex;
@@ -84,4 +103,39 @@
 .closeBtn svg {
   width: 4vw;
   height: 4vw;
+}
+.total {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  bottom: 5vw;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 90vw;
+  border-top: 20px solid white;
+}
+.total::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -10px;
+  height: 1vw;
+  width: 90vw;
+  background-color: #e88a4f;
+  border-radius: 1vw;
+}
+.totalTitle {
+  font-size: 5vw;
+  font-weight: 500;
+  color: #42261d;
+}
+.total button {
+  background-color: #e88a4f;
+  color: #fff;
+  font-size: 4vw;
+  border: none;
+  border-radius: 2vw;
+  padding: 2vw 5vw;
 }

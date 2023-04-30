@@ -7,15 +7,16 @@ function FoodTab({ food, pickFood, count = 0 }) {
         <img className={styles.img} src={food.image} alt="" />
       </div>
       <div className={styles.info}>
-        <h4>
-          {food.name} {Math.floor(food.price)} $
-        </h4>
+        <h4>{food.name}</h4>
         <a>{food.description}</a>
-        <span className={styles.actions}>
-          <button onClick={pickFood}>+</button>
-          <span>7</span>
-          <button>-</button>
-        </span>
+        <div className={styles.price}>
+          <p>{Math.floor(food.price)} $</p>
+          <span className={styles.actions}>
+            <button>-</button>
+            <span>7</span>
+            <button onClick={pickFood}>+</button>
+          </span>
+        </div>
       </div>
     </div>
   );

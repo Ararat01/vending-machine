@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Basket from "../../ui/basket/Basket";
 import Filter from "../../ui/filter/Filter";
 import FoodType from "../../ui/food-type/FoodType";
-import SearchInput from "../../ui/search-input/SearchInput";
 import styles from "./Main.module.css";
 import FoodTab from "../../ui/food-tab/FoodTab";
 import axios from "axios";
@@ -41,6 +40,13 @@ function Main() {
     setFilter(filt);
   };
   const pickFood = (food) => {
+    // useEffect(() => {
+    //   axios
+    //     // .get(`http://37.157.221.131/api/v0.1.0/foods/products/1/add/`)
+    //     .then((res) => {
+    //       console.log(res);
+    //     });
+    // }, []);
     setBasketAnim(styles.anim);
     putBasket(food);
     setTimeout(() => {
@@ -79,7 +85,6 @@ function Main() {
     >
       <div className={styles.header}>
         <img src={"./logo.png"} alt="Not found" className={styles.logo} />
-        {/* <SearchInput /> */}
         <Basket
           basket={basket}
           modalOpened={modal}

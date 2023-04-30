@@ -40,11 +40,14 @@ function Basket({ basket, modalOpened, openHandler, closeHandler, className }) {
             </svg>
           </button>
         </div>
-        <div>
+        <div className={styles.basketFoods}>
           {basket.food.map((food) => {
             return <BasketTab food={food} key={food.id} />;
           })}
-          <h5>{basket.total} $</h5>
+        </div>
+        <div className={styles.total}>
+          <h4 className={styles.totalTitle}>Total: {basket.total} $</h4>
+          <button>PAY</button>
         </div>
       </div>
     </div>
