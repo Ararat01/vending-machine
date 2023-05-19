@@ -10,18 +10,18 @@ function BasketTab({ food, addFood, removeFood, totalProduct }) {
       <div className={styles.actions}>
         <button
           onClick={() => {
-            removeFood(totalProduct.id, totalProduct.count - 1);
-          }}
-        >
-          -
-        </button>
-        <span>{totalProduct.count}</span>
-        <button
-          onClick={() => {
             addFood(food);
           }}
         >
           +
+        </button>
+        <span>{totalProduct.count}</span>
+        <button
+          onClick={() => {
+            removeFood(totalProduct.id, totalProduct.count - 1);
+          }}
+        >
+          -
         </button>
       </div>
     </div>
