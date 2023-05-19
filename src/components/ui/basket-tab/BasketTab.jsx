@@ -1,6 +1,6 @@
 import styles from "./BasketTab.module.css";
 
-function BasketTab({ food, actions }) {
+function BasketTab({ food, addFood, removeFood, totalProduct }) {
   return (
     <div className={styles.main}>
       <img className={styles.img} src={food.image} alt="" />
@@ -10,15 +10,15 @@ function BasketTab({ food, actions }) {
       <div className={styles.actions}>
         <button
           onClick={() => {
-            actions(-1);
+            removeFood(totalProduct.id, totalProduct.count - 1);
           }}
         >
           -
         </button>
-        <span>{food.count}</span>
+        <span>{totalProduct.count}</span>
         <button
           onClick={() => {
-            actions(1);
+            addFood(food);
           }}
         >
           +

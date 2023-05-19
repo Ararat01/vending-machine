@@ -8,73 +8,86 @@ import axios from "axios";
 import { DotPulse } from "@uiball/loaders";
 
 function Main() {
+  /////////////
+  //vars
+  //////////////////
   const [filter, setFilter] = useState(undefined);
+  const [basketAnim, setBasketAnim] = useState("");
+  const [onChange, setOnChange] = useState(0);
+  const [foodArr, setFoodArr] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [basket, setBasket] = useState([]);
+  ///////////////////////
+  // functions
+  /////////////////////
+  useEffect(() => {
+    axios.get(`http://37.157.221.131/api/v0.1.0/foods/baskets/`).then((res) => {
+      setBasket(res.data.results);
+    });
+  }, []);
+  const filterOnChange = (filt) => {
+    if (filt == filter) return;
+    setFilter(filt);
+  };
+  const basketAnimation = () => {
+    setBasketAnim(styles.anim);
 
+    setTimeout(() => {
+      setBasketAnim("");
+    }, 500);
+  };
+  const pickFood = (food) => {
+    axios
+      .post(
+        `http://37.157.221.131/api/v0.1.0/foods/products/${food.id}/add/`,
+        (food = { count: 1 })
+      )
+      .then((res) => {
+        axios
+          .get(`http://37.157.221.131/api/v0.1.0/foods/baskets/`)
+          .then((res) => {
+            setBasket(res.data.results);
+          });
+      });
+    setOnChange(onChange + 1);
+  };
+  const removeFood = (id, count) => {
+    if (count) {
+      axios
+        .put(`http://37.157.221.131/api/v0.1.0/foods/baskets/${id}/`, {
+          count: count,
+        })
+        .then(() => {
+          axios
+            .get(`http://37.157.221.131/api/v0.1.0/foods/baskets/`)
+            .then((res) => {
+              setBasket(res.data.results);
+            });
+        });
+    } else {
+      axios
+        .delete(`http://37.157.221.131/api/v0.1.0/foods/baskets/${id}/remove`)
+        .then(() => {
+          axios
+            .get(`http://37.157.221.131/api/v0.1.0/foods/baskets/`)
+            .then((res) => {
+              setBasket(res.data.results);
+            });
+        });
+    }
+  };
   useEffect(() => {
     axios
       .get(
         `http://37.157.221.131/api/v0.1.0/foods/categories/${
-          filter ? filter.id : "123"
+          filter ? filter.id : ""
         }`
       )
       .then((res) => {
         setFoodArr([]);
         res.data.results ? setFoodArr(res.data.results) : setFoodArr([]);
       });
-  }, [filter]);
-  /////////////
-  //vars
-  //////////////////
-  const [basketAnim, setBasketAnim] = useState("");
-  const [foodArr, setFoodArr] = useState([]);
-  const [modal, setModal] = useState(false);
-  const [basket, setBasket] = useState({
-    food: [],
-    total: 0,
-  });
-  ///////////////////////
-  // functions
-  /////////////////////
-  const filterOnChange = (filt) => {
-    if (filt == filter) return;
-    setFilter(filt);
-  };
-  const pickFood = (food) => {
-    // useEffect(() => {
-    //   axios
-    //     // .get(`http://37.157.221.131/api/v0.1.0/foods/products/1/add/`)
-    //     .then((res) => {
-    //       console.log(res);
-    //     });
-    // }, []);
-    setBasketAnim(styles.anim);
-    putBasket(food);
-    setTimeout(() => {
-      setBasketAnim("");
-    }, 500);
-  };
-  const putBasket = (food) => {
-    basket.food.find((obj) => obj.id === food.id)
-      ? setBasket({
-          food: [
-            ...basket.food.map((fd) => {
-              return food.id == fd.id ? { ...fd, count: fd.count + 1 } : fd;
-            }),
-          ],
-          total: basket.food.reduce(
-            (t, f) => t + parseFloat(f.price) * f.count,
-            parseFloat(food.price)
-          ),
-        })
-      : setBasket({
-          food: [...basket.food, { ...food, count: 1 }],
-          total: basket.food.reduce(
-            (t, f) => t + parseFloat(f.price) * f.count,
-            parseFloat(food.price)
-          ),
-        });
-  };
-
+  }, [filter, basketAnim]);
   //////////////////
   // html
   ////////////////
@@ -89,6 +102,8 @@ function Main() {
           basket={basket}
           modalOpened={modal}
           className={basketAnim}
+          addFood={pickFood}
+          removeFood={removeFood}
           closeHandler={() => {
             setModal(false);
           }}
@@ -109,9 +124,15 @@ function Main() {
             return (
               <FoodTab
                 key={food.id}
-                pickFood={() => pickFood(food)}
+                pickFood={() => {
+                  basketAnimation();
+                  pickFood(food);
+                }}
+                removeFood={() => {
+                  basketAnimation();
+                  removeFood(food.basket[0].id, food.basket[0].count - 1);
+                }}
                 food={food}
-                count={1}
               />
             );
           })

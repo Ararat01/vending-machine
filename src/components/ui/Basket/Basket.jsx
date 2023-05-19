@@ -1,13 +1,23 @@
 import Ibasket from "../../icons/Ibasket";
 import styles from "./Basket.module.css";
 import BasketTab from "../basket-tab/BasketTab";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-function Basket({ basket, modalOpened, openHandler, closeHandler, className }) {
+function Basket({
+  modalOpened,
+  openHandler,
+  closeHandler,
+  className,
+  basket = [],
+  addFood,
+  removeFood,
+}) {
   return (
     <div className={`${styles.basket} ${className}`}>
       <button className={styles.openBtn} onClick={openHandler}></button>
       <Ibasket className={styles.icon} />
-      <span className={styles.count}>{basket.food.length}</span>
+      <span className={styles.count}>{basket.length}</span>
       <div
         className={`${styles.modal} ${
           modalOpened ? styles.modalOpen : styles.modalClose
@@ -41,12 +51,26 @@ function Basket({ basket, modalOpened, openHandler, closeHandler, className }) {
           </button>
         </div>
         <div className={styles.basketFoods}>
-          {basket.food.map((food) => {
-            return <BasketTab food={food} key={food.id} />;
+          {basket.map((food) => {
+            return (
+              <BasketTab
+                totalProduct={food}
+                addFood={addFood}
+                removeFood={removeFood}
+                food={food.product}
+                key={food.product.id}
+              />
+            );
           })}
         </div>
         <div className={styles.total}>
-          <h4 className={styles.totalTitle}>Total: {basket.total} $</h4>
+          <h4 className={styles.totalTitle}>
+            Total:{" "}
+            {basket.reduce((t, f) => {
+              return t + f.price;
+            }, 0)}{" "}
+            $
+          </h4>
           <button>PAY</button>
         </div>
       </div>

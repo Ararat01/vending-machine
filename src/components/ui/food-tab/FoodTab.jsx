@@ -1,6 +1,6 @@
 import styles from "./FoodTab.module.css";
 
-function FoodTab({ food, pickFood, count = 0 }) {
+function FoodTab({ food, pickFood, count = 0, removeFood }) {
   return (
     <div className={styles.tab}>
       <div className={styles.imgDiv}>
@@ -12,8 +12,8 @@ function FoodTab({ food, pickFood, count = 0 }) {
         <div className={styles.price}>
           <p>{Math.floor(food.price)} $</p>
           <span className={styles.actions}>
-            <button>-</button>
-            <span>7</span>
+            <button onClick={removeFood}>-</button>
+            <span>{food.baskets ? food.baskets[0].count : 0}</span>
             <button onClick={pickFood}>+</button>
           </span>
         </div>
